@@ -1,21 +1,40 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #FFFFFF;
-    color: #000000;
+    padding: 20px;
 }
 
-body.dark-theme {
-    background-color: #000000;
-    color: #FFFFFF;
+/* Tema claro */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #f0f0f0;
+        color: #333;
+    }
 }
 
-table {
-    width: 100%;
-    margin-bottom: 20px;
+/* Tema escuro */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #333;
+        color: #fff;
+    }
 }
 
-th, td {
+#objetivos {
+    margin-top: 20px;
+}
+
+.objetivo {
+    margin-bottom: 10px;
     padding: 10px;
-    text-align: center;
-    border: 1px solid #000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.objetivo input[type="text"],
+.objetivo input[type="datetime-local"] {
+    margin-right: 10px;
+}
+
+.objetivo button {
+    margin-right: 10px;
 }

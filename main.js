@@ -1,36 +1,33 @@
-let cronometros = [];
-
-function addCronometro() {
-    let dataFinal = prompt("Digite a data final (AAAA-MM-DD HH:MM:SS):");
-    let dataFinalObj = new Date(dataFinal);
-    cronometros.push(dataFinalObj);
-
-    atualizarTabela();
+function adicionarObjetivo() {
+    var objetivo = document.createElement('div');
+    objetivo.className = 'objetivo';
+    objetivo.innerHTML = `
+        <input type="text" placeholder="Nome do Objetivo">
+        <input type="datetime-local">
+        <button onclick="iniciarCronometro(this);">Iniciar</button>
+        <button onclick="removerObjetivo(this);">Remover</button>
+        <span></span>
+    `;
+    document.getElementById('objetivos').appendChild(objetivo);
 }
 
-function atualizarTabela() {
-    let tabela = document.getElementById('cronometros');
-    tabela.innerHTML = '<tr><th>Meta</th><th>Tempo Restante</th></tr>';
-
-    for (let i = 0; i < cronometros.length; i++) {
-        let agora = new Date();
-        let diferenca = cronometros[i] - agora;
-
-        let segundos = Math.floor((diferenca / 1000) % 60);
-        let minutos = Math.floor((diferenca / 1000 / 60) % 60);
-        let horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
-        let dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-        let meses = Math.floor(dias / 30);
-        dias %= 30;
-
-        tabela.innerHTML += '<tr><td>Meta ' + (i+1) + '</td><td>' + meses + ' meses, ' + dias + ' dias, ' + horas + ' horas, ' + minutos + ' minutos, ' + segundos + ' segundos</td></tr>';
-    }
+function iniciarCronometro(button) {
+    var objetivo = button.parentElement;
+    var dataConclusao = new Date(objetivo.querySelector('input[type="datetime-local"]').value);
+    var span = objetivo.querySelector('span');
+    var interval = setInterval(function() {
+        var agora = new Date();
+        var tempoRestante = Math.floor((dataConclusao - agora) / 1000);
+        if (tempoRestante > 0) {
+            span.textContent = ' Tempo restante: ' + tempoRestante + ' segundos';
+        } else {
+            clearInterval(interval);
+            span.textContent = ' Objetivo concluído!';
+        }
+    }, 1000);
 }
 
-document.getElementById('addCronometro').onclick = addCronometro;
-
-document.getElementById('changeTheme').onclick = function() {
-    document.body.classList.toggle("dark-theme");
+function removerObjetivo(button) {
+    var objetivo = button.parentElement;
+    document.getElementById('objetivos').removeChild(objetivo);
 }
-
-setInterval(atualizarTabela, 1000);
