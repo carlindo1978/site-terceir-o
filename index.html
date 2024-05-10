@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Objetivo Cronômetro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div id="objetivos"></div>
-    <button onclick="adicionarObjetivo();">Adicionar Objetivo</button>
+    <h1>Carlos Eduardo Lovato Camargo</h1>
+    <input type="text" id="goalName" placeholder="Digite o nome da meta">
+    <input type="date" id="goalDate">
+    <button onclick="createGoal()">Criar Meta</button>
+    <div id="goalsContainer"></div>
+    <button id="themeToggle" onclick="toggleTheme()">Alternar Tema</button>
+
     <script src="main.js"></script>
 </body>
 </html>
